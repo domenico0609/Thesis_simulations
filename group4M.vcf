@@ -1,0 +1,14 @@
+##fileformat=VCFv4.2
+##fileDate=20220606
+##source=PLINKv1.90
+##reference=C:\humpbacks\Ancestral_Fasta _test.fasta
+##contig=<ID=1,length=640>
+##INFO=<ID=PR,Number=0,Type=Flag,Description="Provisional reference allele, may not be based on real reference genome">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	HG1	HG2	HG3	HG4	HG5	HG6	HG7	HG8	HG9	HG10
+1	55	rs1	C	C	.	.	PR	GT	1/0	0/0	1/0	1/0	1/0	1/0	1/0	1/0	1/0	1/0
+1	56	rs2	C	C	.	.	PR	GT	1/0	1/0	0/0	1/0	1/0	1/0	1/0	1/0	1/0	1/0
+1	57	rs1	G	G	.	.	PR	GT	1/0	1/0	1/0	0/0	1/0	1/0	1/0	1/0	1/0	1/0
+1	58	rs2	C	C	.	.	PR	GT	1/0	1/0	1/0	1/0	0/0	1/0	1/0	1/0	1/0	1/0
+1	59	rs1	C	C	.	.	PR	GT	1/0	1/0	1/0	1/0	1/0	0/0	1/0	1/0	1/0	1/0
+1	60	rs2	A	A	.	.	PR	GT	1/0	1/0	1/0	1/0	1/0	1/0	0/0	1/0	1/0	1/0

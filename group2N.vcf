@@ -1,0 +1,26 @@
+##fileformat=VCFv4.2
+##fileDate=20220606
+##source=PLINKv1.90
+##reference=C:\humpbacks\Ancestral_Fasta _test.fasta
+##contig=<ID=1,length=640>
+##INFO=<ID=PR,Number=0,Type=Flag,Description="Provisional reference allele, may not be based on real reference genome">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	HG1	HG2	HG3	HG4	HG5	HG6	HG7	HG8	HG9	HG10
+1	5	rs1	C	A	.	.	PR	GT	1/0	1/1	0/1	0/1	1/0	1/0	1/0	1/0	0/1	1/1
+1	6	rs2	C	T	.	.	PR	GT	0/1	1/0	1/1	1/0	0/1	1/0	0/1	0/1	1/0	1/0
+1	7	rs1	A	G	.	.	PR	GT	1/1	1/1	0/1	1/1	1/0	1/0	0/1	1/1	0/1	1/1
+1	8	rs2	A	C	.	.	PR	GT	0/1	1/0	1/1	1/0	1/1	0/0	0/1	0/1	1/0	1/0
+1	9	rs1	A	T	.	.	PR	GT	1/0	1/1	0/1	0/1	1/0	1/0	0/1	1/1	0/1	1/1
+1	10	rs2	C	T	.	.	PR	GT	1/1	1/0	1/1	1/0	1/0	0/1	0/1	1/1	1/0	1/1
+1	20	rs1	G	A	.	.	PR	GT	1/0	1/1	0/1	0/0	1/0	1/0	0/0	0/0	0/1	1/1
+1	21	rs2	C	G	.	.	PR	GT	1/0	0/0	1/1	1/0	0/0	0/0	1/1	0/1	1/0	0/1
+1	22	rs1	T	A	.	.	PR	GT	1/0	1/1	0/1	1/1	1/0	1/0	1/1	0/1	0/1	1/1
+1	23	rs2	G	C	.	.	PR	GT	1/1	0/1	1/1	1/0	1/1	0/1	1/0	1/0	0/1	1/1
+1	24	rs1	G	T	.	.	PR	GT	1/0	1/1	0/1	0/1	1/0	1/0	1/1	0/0	0/1	1/1
+1	25	rs2	A	C	.	.	PR	GT	1/1	1/0	1/0	1/0	1/1	0/1	1/0	1/0	0/1	1/1
+1	35	rs1	A	G	.	.	PR	GT	1/0	1/1	0/1	0/1	1/0	1/0	0/1	0/1	0/1	1/1
+1	36	rs2	C	A	.	.	PR	GT	1/0	0/1	1/1	1/1	1/1	0/1	1/0	1/0	0/1	1/1
+1	37	rs1	T	G	.	.	PR	GT	1/0	1/1	0/1	0/1	1/0	1/0	1/1	1/0	1/1	1/1
+1	38	rs2	T	C	.	.	PR	GT	1/1	1/0	0/1	1/1	1/1	0/1	1/0	1/0	0/1	1/1
+1	39	rs1	T	A	.	.	PR	GT	1/0	1/1	0/1	0/1	1/0	1/1	1/1	0/1	0/1	1/1
+1	40	rs2	C	G	.	.	PR	GT	1/1	0/1	0/1	1/1	1/1	0/1	1/1	1/0	0/1	1/1

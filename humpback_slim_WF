@@ -1,0 +1,126 @@
+//Version WF of Main script
+
+initialize() {
+	//initializing a nucleotide based simulation
+	initializeSLiMModelType("WF");	
+	initializeSLiMOptions(nucleotideBased=T);
+	defineConstant("L", initializeAncestralNucleotides("C:/Users/Domenico/Documents/humpy/Ancestral_Fasta_test.fasta"));
+	
+	initializeSex("A");	
+	
+	//Length of the mitochondrial section
+	defineConstant("M", 21);
+	
+	//Number of populations
+	defineConstant("P", 4);	
+	//Number of total individuals in a single population
+	defineConstant("Nmax", 200);
+	//Number of founding individuals
+	defineConstant("N", 10);	
+	
+	//Number of generations
+	defineConstant("Gen", 10000);
+	
+	for (i in 1:10) initializeMutationTypeNuc(i, 0.5, "f", 0.0);
+	
+	initializeMutationType("m11", 0.5, "f", 0.0);
+
+	m1.color = "purple";
+	m2.color = "pink";
+	m3.color = "blue";
+	m4.color = "red";
+	m5.color = "yellow";
+	m6.color = "green";
+	m7.color = "blue";
+	m8.color = "red";
+	m9.color = "yellow";
+	m10.color = "green";
+	m11.color = "grey";
+	
+	initializeGenomicElementType("g1", m1, 1.0, mmJukesCantor(0.0));	//neutral nuclear DNA region
+	initializeGenomicElementType("g2", m2, 1.0, mmJukesCantor(0.0));	//neutral mitochondrial DNA region 
+	initializeGenomicElement(g1, 0, L-M-1);
+	initializeGenomicElement(g2, L-M, L-1);
+	initializeRecombinationRate(c(1e-8, 0), c(L-M-1, L-1));	
+	
+	g1.color = "blue";
+	g2.color = "pink";	
+	
+}
+
+mateChoice()
+	{	
+		matePop = sample(sim.subpopulations, 1);
+		mate= matePop.sampleIndividuals(1, sex = "M");
+		return mate;
+	}
+
+
+1 early() {
+	for (i in 1:P) sim.addSubpop(i, N);
+	
+	p1.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group1N.vcf", m3);
+	p1.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group1M.vcf", m7);
+	p2.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group2N.vcf", m4);	
+	p2.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group2M.vcf", m8);
+	p3.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group3N.vcf", m5);	
+	p3.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group3M.vcf", m9);
+	p4.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group4N.vcf", m6);	
+	p4.haplosomes.readHaplosomesFromVCF("C:/Users/Domenico/Documents/humpy/group4M.vcf", m10);	
+	
+for (subpop in sim.subpopulations) subpop.setSubpopulationSize(1000);
+	
+	//nuclear mutations
+	nuc1 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m3);
+	nuc2 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m4);
+	nuc3 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m5);
+	nuc4 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m6);
+	
+	defineGlobal("Nucs", c(nuc1, nuc2, nuc3, nuc4));	
+	
+	mit1 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m7);
+	mit2 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m8);
+	mit3 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m9); 
+	mit4 = sim.subpopulations.individuals.haploidGenome1.mutationsOfType(m10);
+
+	defineGlobal("Mits", c(mit1, mit2, mit3, mit4));	
+
+	log = community.createLogFile("sim_log.txt", logInterval=10);
+	log.addCycle();
+	log.addCustomColumn("FST mito(p1&p2)", "calcFST(p1.individuals.haploidGenome1,p2.individuals.haploidGenome1, Mits);");
+	log.addCustomColumn("FST nuc(p1&p2)", "calcFST(p1.haplosomes,p2.haplosomes, Nucs);");
+
+	gen1 = sim.subpopulations.individuals;
+	gen1.haploidGenome1.addNewMutation(m11, 0.0, L-1);
+	
+}
+
+modifyChild() {
+
+	if (!child.haploidGenome1.containsMarkerMutation(m9, L-1)){
+	FMp1 = parent1.haploidGenome1.mutationsOfType(m6);
+	FMp2 = parent1.haploidGenome1.mutationsOfType(m7);
+	FMp3 = parent1.haploidGenome1.mutationsOfType(m8);
+	FMMark = parent1.haploidGenome1.mutationsOfType(m9);
+	FMMut = parent1.haploidGenome1.mutationsOfType(m2);	
+	
+	child.haploidGenome1.addMutations(c(FMp1, FMp2, FMp3, FMMark, FMMut));
+	}
+	
+	CMp1 = child.haploidGenome2.mutationsOfType(m6);
+	CMp2 = child.haploidGenome2.mutationsOfType(m7);
+	CMp3 = child.haploidGenome2.mutationsOfType(m8);
+	CMMark = child.haploidGenome2.mutationsOfType(m9);
+	CMMut = child.haploidGenome2.mutationsOfType(m2);
+	child.haploidGenome2.removeMutations(c(CMp1, CMp2, CMp3, CMMark, CMMut));
+		
+	/*if (!child.genome1.containsMarkerMutation(m5, 0))
+		return F;
+	if (child.genome1.containsMarkerMutation(m5, 0))
+		return F;
+
+	}*/
+	return T;
+}
+
+2000 late() {}
